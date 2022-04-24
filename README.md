@@ -49,11 +49,11 @@ SearchServer srv(document_input);
 
 Результатом обработки поискового запроса является набор из максимум пяти наиболее релевантных документов. В реальных поисковых системах метрика релевантности устроена довольно сложно. В рамках нашей задачи в качестве метрики релевантности мы будем использовать суммарное количество вхождений всех слов запроса в документ. Например, допустим, у нас есть поисковая база из трёх документов: "london is the capital of great britain", "moscow is the capital of the russian federation", "paris is the capital of france", — и поисковый запрос "the best capital". Тогда метрика релевантности у наших документов будет такой:
 
-* ul london is the capital of great britain — 2 (слово "the" входит в документ 1 раз, слово "best" — ни разу, слово "capital" — 1 раз)
+* london is the capital of great britain — 2 (слово "the" входит в документ 1 раз, слово "best" — ни разу, слово "capital" — 1 раз)
 
-* ul moscow is the capital of the russian federation — 3 (слово "the" входит в документ 2 раза, слово "best" — ни разу, слово "capital" — 1 раз)
+* moscow is the capital of the russian federation — 3 (слово "the" входит в документ 2 раза, слово "best" — ни разу, слово "capital" — 1 раз)
 
-* ul paris is the capital of france — 2 ("the" — 1, "best" — 0, "capital" — 1)
+* paris is the capital of france — 2 ("the" — 1, "best" — 0, "capital" — 1)
 
 В итоге получается, что документ "moscow is the capital of the russian federation" оказывается наиболее релевантным запросу "the best capital".
 
@@ -66,6 +66,7 @@ SearchServer srv(document_input);
 * при подсчёте hitcount нужно учитывать только слова целиком, то есть слово «there» не является вхождением слова «the»
 
 **Метод UpdateDocumentBase(istream& document_input)**
+
 Метод UpdateDocumentBase заменяет текущую базу документов на новую, которая содержится в потоке document_input. При этом документ из первой строки этого потока будет иметь идентификатор (docid) 0, документ из второй строки — идентификатор 1 и т.д. Точно так же должен назначать идентификаторы документам и конструктор класса SearchServer. Например, код
 
 ```C++
